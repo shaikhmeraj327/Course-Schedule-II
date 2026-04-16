@@ -27,7 +27,13 @@ class CourseScheduleTests(unittest.TestCase):
     def test_no_prerequisites(self):
         num_courses = 3
         prerequisites = []
-        self.assertEqual(find_course_order(num_courses, prerequisites), [0, 1, 2])
+        order = find_course_order(num_courses, prerequisites)
+        self.assertEqual(len(order), num_courses)
+        self.assertEqual(set(order), {0, 1, 2})
+
+    def test_invalid_course_index_returns_empty(self):
+        self.assertEqual(find_course_order(2, [[1, 2]]), [])
+        self.assertEqual(find_course_order(2, [[-1, 0]]), [])
 
 
 if __name__ == "__main__":
